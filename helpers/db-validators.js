@@ -1,4 +1,4 @@
-const { Noticia, Usuario } = require( '../models' );
+const { Noticia, Prevencion, Usuario } = require( '../models' );
 
 const existeNoticia = async ( id ) => {
 
@@ -6,6 +6,15 @@ const existeNoticia = async ( id ) => {
 
     if ( !noticia ) {
         throw new Error( `No existe noticia con el id: ${ id }.` );
+    }
+}
+
+const existePrevencion = async ( id ) => {
+
+    const prevencion = await Prevencion.findById( id );
+
+    if ( !prevencion ) {
+        throw new Error( `No existe prevención con el id: ${ id }.` );
     }
 }
 
@@ -20,5 +29,6 @@ const existeUsuario = async ( id ) => {
 
 module.exports = {
     existeNoticia,
+    existePrevencion,
     existeUsuario,
 }

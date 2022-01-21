@@ -92,7 +92,7 @@ const deleteNoticias = async ( req, res ) => {
         return res.json( {
             value: 1,
             msg: 'La noticia se ha eliminado correctamente.'
-        } )
+        } );
         
     } catch ( error ) {
 

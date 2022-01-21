@@ -13,7 +13,8 @@ class Server{
 
         this.paths = {
             noticias: '/noticias',
-            usuarios: '/usuarios'
+            usuarios: '/usuarios',
+            prevenciones: '/prevenciones'
         }
 
         this.conectarDB();
@@ -37,6 +38,7 @@ class Server{
     routes(){
 
         this.app.use( this.paths.noticias, require( './routes/noticias.routes' ) );
+        this.app.use( this.paths.prevenciones, require( './routes/prevenciones.routes' ) );
         this.app.use( this.paths.usuarios, require( './routes/usuarios.routes' ) );
     }
 

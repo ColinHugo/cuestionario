@@ -116,7 +116,7 @@ const deleteUsuarios = async ( req, res ) => {
         return res.json( {
             value: 1,
             msg: 'El usuario se ha eliminado correctamente.'
-        } )
+        } );
         
     } catch ( error ) {
 
