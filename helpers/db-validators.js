@@ -1,4 +1,4 @@
-const { Noticia } = require( '../models' );
+const { Noticia, Usuario } = require( '../models' );
 
 const existeNoticia = async ( id ) => {
 
@@ -9,6 +9,16 @@ const existeNoticia = async ( id ) => {
     }
 }
 
+const existeUsuario = async ( id ) => {
+
+    const usuario = await Usuario.findById( id );
+
+    if ( !usuario || !usuario.estado ) {
+        throw new Error( `No existe usuario con el id: ${ id }.` );
+    }
+}
+
 module.exports = {
-    existeNoticia
+    existeNoticia,
+    existeUsuario,
 }

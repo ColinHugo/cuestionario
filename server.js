@@ -12,7 +12,8 @@ class Server{
         this.port = process.env.PORT;
 
         this.paths = {
-            noticias: '/noticias'
+            noticias: '/noticias',
+            usuarios: '/usuarios'
         }
 
         this.conectarDB();
@@ -36,6 +37,7 @@ class Server{
     routes(){
 
         this.app.use( this.paths.noticias, require( './routes/noticias.routes' ) );
+        this.app.use( this.paths.usuarios, require( './routes/usuarios.routes' ) );
     }
 
     listen(){
