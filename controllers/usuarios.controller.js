@@ -56,11 +56,14 @@ const getUsuario = async ( req, res ) => {
 
 const postUsuarios = async ( req, res ) => {
 
-    const { ...datos } = req.body;
+    const { password, ...datos } = req.body;
 
     try {
 
-        const usuario = new Usuario( datos );
+        const usuario = new Usuario( {
+            ...datos,
+            password: await Usuario.encryptPassword( password )
+        } );
 
         await usuario.save();
 

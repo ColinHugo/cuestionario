@@ -1,4 +1,5 @@
 const { Schema, model } = require( 'mongoose' );
+const bcrypt = require( 'bcrypt' );
 
 const UsuarioSchema = Schema( {
     
@@ -12,6 +13,17 @@ const UsuarioSchema = Schema( {
         required: [ true, 'Los apellidos del usuario son obligatorios.' ]
     },
 
+    correo: {
+        type: String,
+        required: [ true, 'El correo es obligatorio.' ],
+        unique: [ true, 'El correo ya está registrado.' ]
+    },
+
+    password: {
+        type: String,
+        required: [ true, 'La contraseña es obligatoria.' ],
+    },
+
     area: {
         type: String,
         required: [ true, 'El área del usuario es obligatoria.' ]
@@ -20,6 +32,12 @@ const UsuarioSchema = Schema( {
     puesto: {
         type: String,
         required: [ true, 'El puesto del usuario es obligatorio.' ]
+    },
+
+    rol: {
+        type: Number,
+        default: 3,
+        enum: [ 1, 2, 3 ]
     },
 
     estado: {
@@ -36,9 +54,20 @@ const UsuarioSchema = Schema( {
     timestamps: true
 } );
 
+UsuarioSchema.statics.encryptPassword = async ( password ) => {
+    
+    const salt = await bcrypt.genSalt();
+
+    return bcrypt.hashSync( password, salt );
+}
+
+UsuarioSchema.statics.comparePassword = async ( password, receivedPassword ) => {
+    return await bcrypt.compare( password, receivedPassword );
+}
+
 UsuarioSchema.methods.toJSON = function(){
 
-    const { _id, ...usuario } = this.toObject();
+    const { _id, password, estado, createdAt, updatedAt, ...usuario } = this.toObject();
     usuario.idUsuario = _id;
 
     return usuario;

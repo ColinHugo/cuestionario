@@ -12,6 +12,7 @@ class Server{
         this.port = process.env.PORT;
 
         this.paths = {
+            auth: '/auth',
             noticias: '/noticias',
             usuarios: '/usuarios',
             prevenciones: '/prevenciones'
@@ -37,6 +38,7 @@ class Server{
 
     routes(){
 
+        this.app.use( this.paths.auth, require( './routes/auth.routes' ) );
         this.app.use( this.paths.noticias, require( './routes/noticias.routes' ) );
         this.app.use( this.paths.prevenciones, require( './routes/prevenciones.routes' ) );
         this.app.use( this.paths.usuarios, require( './routes/usuarios.routes' ) );

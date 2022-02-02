@@ -1,5 +1,14 @@
 const { Noticia, Prevencion, Usuario } = require( '../models' );
 
+const existeEmail = async( correo = '' ) => {
+    
+    const email = await Usuario.findOne( { correo } );
+    
+    if ( email ) {
+        throw new Error( `El correo: ${ correo }, ya está registrado` );
+    }
+}
+
 const existeNoticia = async ( id ) => {
 
     const noticia = await Noticia.findById( id );
@@ -28,6 +37,7 @@ const existeUsuario = async ( id ) => {
 }
 
 module.exports = {
+    existeEmail,
     existeNoticia,
     existePrevencion,
     existeUsuario,
