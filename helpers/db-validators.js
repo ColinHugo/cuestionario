@@ -1,4 +1,5 @@
-const { Noticia, Prevencion, Usuario } = require( '../models' );
+const res = require('express/lib/response');
+const { Noticia, Prevencion, Temperatura, Usuario } = require( '../models' );
 
 const existeEmail = async( correo = '' ) => {
     
@@ -27,6 +28,15 @@ const existePrevencion = async ( id ) => {
     }
 }
 
+const existeTemperatura = async ( id ) => {
+
+    const temperatura = await Temperatura.findById( id );
+
+    if ( !temperatura ) {
+        throw new Error( `No existe temperatura con el id: ${ id }.` );
+    }
+}
+
 const existeUsuario = async ( id ) => {
 
     const usuario = await Usuario.findById( id );
@@ -40,5 +50,6 @@ module.exports = {
     existeEmail,
     existeNoticia,
     existePrevencion,
+    existeTemperatura,
     existeUsuario,
 }
