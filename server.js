@@ -14,6 +14,7 @@ class Server{
         this.paths = {
             auth: '/auth',
             noticias: '/noticias',
+            preguntas: '/cuestionarios',
             temperaturas: '/temperaturas',
             usuarios: '/usuarios',
             prevenciones: '/prevenciones'
@@ -24,7 +25,6 @@ class Server{
         this.middlewares();
         
         this.routes();
-
     }
 
     async conectarDB(){
@@ -41,6 +41,7 @@ class Server{
 
         this.app.use( this.paths.auth, require( './routes/auth.routes' ) );
         this.app.use( this.paths.noticias, require( './routes/noticias.routes' ) );
+        this.app.use( this.paths.preguntas, require( './routes/preguntas.routes' ) );
         this.app.use( this.paths.prevenciones, require( './routes/prevenciones.routes' ) );
         this.app.use( this.paths.temperaturas, require( './routes/temperaturas.routes' ) );
         this.app.use( this.paths.usuarios, require( './routes/usuarios.routes' ) );
