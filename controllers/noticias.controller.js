@@ -32,11 +32,9 @@ const getNoticias = async ( req, res ) => {
 
 const postNoticias = async ( req, res ) => {
 
-    const { descripcion } = req.body;
-
     try {
 
-        const noticia = new Noticia( { descripcion } );
+        const noticia = new Noticia( req.body );
 
         await noticia.save();
 

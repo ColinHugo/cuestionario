@@ -32,11 +32,9 @@ const getPrevenciones = async ( req, res ) => {
 
 const postPrevenciones = async ( req, res ) => {
 
-    const { descripcion } = req.body;
-
     try {
 
-        const prevencion = new Prevencion( { descripcion } );
+        const prevencion = new Prevencion( req.body );
 
         await prevencion.save();
 
