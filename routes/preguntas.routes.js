@@ -5,7 +5,7 @@ const { existeUsuario } = require( '../helpers/db-validators' );
 
 const { validarCampos, validarJWT } = require( '../middlewares' );
 
-const { getPreguntas, postPreguntas } = require( '../controllers/cuestionarios.controller' );
+const { getPreguntas, postPreguntas } = require( '../controllers/preguntas.controller' );
 
 router.get( '/:idUsuario', [
     check( 'idUsuario', 'No es un id válido.' ).isMongoId(),
