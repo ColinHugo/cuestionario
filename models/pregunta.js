@@ -3,72 +3,72 @@ const { Schema, model } = require( 'mongoose' );
 const PreguntaSchema = Schema( {
     
     pregunta1: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 1 es obligatoria.' ]
     },
 
     pregunta2: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 2 es obligatoria.' ]
     },
 
     pregunta3: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 3 es obligatoria.' ]
     },
 
     pregunta4: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 4 es obligatoria.' ]
     },
 
     pregunta5: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 5 es obligatoria.' ]
     },
 
     pregunta6: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 6 es obligatoria.' ]
     },
 
     pregunta7: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 7 es obligatoria.' ]
     },
 
     pregunta8: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 8 es obligatoria.' ]
     },
 
     pregunta9: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 9 es obligatoria.' ]
     },
 
     pregunta10: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 10 es obligatoria.' ]
     },
 
     pregunta11: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 11 es obligatoria.' ]
     },
 
     pregunta12: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 12 es obligatoria.' ]
     },
 
     pregunta13: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 13 es obligatoria.' ]
     },
 
     pregunta14: {
-        type: String,
+        type: Boolean,
         required: [ true, 'La pregunta 14 es obligatoria.' ]
     },
 
