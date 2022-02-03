@@ -2,7 +2,7 @@ const express = require( 'express');
 const cors = require( 'cors');
 const mongoSanitize = require( 'express-mongo-sanitize' );
 
-const { dbConnection } = require( './database/config');
+const { dbConnection } = require( '../database/config');
 
 class Server{
 
@@ -40,13 +40,13 @@ class Server{
 
     routes(){
 
-        this.app.use( this.paths.auth, require( './routes/auth.routes' ) );
-        this.app.use( this.paths.mensajes, require( './routes/mensajes.routes' ) );
-        this.app.use( this.paths.noticias, require( './routes/noticias.routes' ) );
-        this.app.use( this.paths.preguntas, require( './routes/preguntas.routes' ) );
-        this.app.use( this.paths.prevenciones, require( './routes/prevenciones.routes' ) );
-        this.app.use( this.paths.temperaturas, require( './routes/temperaturas.routes' ) );
-        this.app.use( this.paths.usuarios, require( './routes/usuarios.routes' ) );
+        this.app.use( this.paths.auth, require( '../routes/auth.routes' ) );
+        this.app.use( this.paths.mensajes, require( '../routes/mensajes.routes' ) );
+        this.app.use( this.paths.noticias, require( '../routes/noticias.routes' ) );
+        this.app.use( this.paths.preguntas, require( '../routes/preguntas.routes' ) );
+        this.app.use( this.paths.prevenciones, require( '../routes/prevenciones.routes' ) );
+        this.app.use( this.paths.temperaturas, require( '../routes/temperaturas.routes' ) );
+        this.app.use( this.paths.usuarios, require( '../routes/usuarios.routes' ) );
     }
 
     listen(){
