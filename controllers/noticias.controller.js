@@ -4,7 +4,7 @@ const getNoticias = async ( req, res ) => {
 
     try {
 
-        const noticias = await Noticia.find()
+        const noticias = await Noticia.find().sort( { createdAt: -1 } )
             .populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
         if ( noticias.length === 0 ) {
