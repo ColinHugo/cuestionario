@@ -7,8 +7,17 @@ const NoticiaSchema = Schema( {
         required: [ true, 'La descripción de la noticia es obligatoria.' ]
     },
 
+    link: {
+        type: String,
+    },
+
     foto: {
         type: String
+    },
+
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario'
     }
     
 }, {

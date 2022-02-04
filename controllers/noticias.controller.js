@@ -4,7 +4,8 @@ const getNoticias = async ( req, res ) => {
 
     try {
 
-        const noticias = await Noticia.find();
+        const noticias = await Noticia.find()
+            .populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
         if ( noticias.length === 0 ) {
 

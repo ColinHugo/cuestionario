@@ -3,7 +3,7 @@ const { check } = require( 'express-validator' );
 
 const { existeNoticia } = require( '../helpers/db-validators' );
 
-const { validarCampos } = require( '../middlewares' );
+const { validarCampos, validarJWT } = require( '../middlewares' );
 
 const { getNoticias, postNoticias, 
         putNoticias, deleteNoticias } = require( '../controllers/noticias.controller' );
@@ -11,7 +11,8 @@ const { getNoticias, postNoticias,
 router.get( '/', getNoticias );
 
 router.post( '/', [
-    check( 'descripcion', 'La descripción de la noticia es obligatoria.' ).escape().trim().notEmpty(),
+    validarJWT,
+    check( 'descripcion', 'La descripción de la noticia es obligatoria.' ).trim().notEmpty(),
     validarCampos
 ], postNoticias );
 
