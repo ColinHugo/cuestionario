@@ -5,6 +5,7 @@ const Prevencion = require( './prevencion' );
 const Rol = require( './rol' );
 const Temperatura = require( './temperatura' );
 const Usuario = require( './usuario' );
+const Visita = require( './visita' );
 
 module.exports = {
     Mensaje,
@@ -14,4 +15,5 @@ module.exports = {
     Rol,
     Temperatura,
     Usuario,
+    Visita,
 }
