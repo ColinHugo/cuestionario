@@ -86,9 +86,13 @@ const postUsuarios = async ( req, res ) => {
 const putUsuarios = async ( req, res ) => {
 
     const { idUsuario } = req.params;
-    const { ...datos } = req.body;
+    const { password, ...datos } = req.body;
 
     try {
+
+        if ( password ) {
+            datos.password = await Usuario.encryptPassword( password );
+        }
 
         await Usuario.findByIdAndUpdate( idUsuario, datos );
 
