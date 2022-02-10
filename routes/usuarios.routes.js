@@ -1,7 +1,7 @@
 const router = require( 'express' ).Router();
 const { check } = require( 'express-validator' );
 
-const { existeEmail, existeUsuario } = require( '../helpers/db-validators' );
+const { existeEmail, existeUsuario } = require( '../helpers' );
 
 const { validarCampos } = require( '../middlewares' );
 

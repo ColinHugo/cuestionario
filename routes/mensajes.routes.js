@@ -1,7 +1,7 @@
 const router = require( 'express' ).Router();
 const { check } = require( 'express-validator' );
 
-const { existeUsuario } = require( '../helpers/db-validators' );
+const { existeUsuario } = require( '../helpers' );
 
 const { validarCampos, validarJWT } = require( '../middlewares' );
 
@@ -16,6 +16,7 @@ router.get( '/:idUsuario', [
 router.post( '/:idReceptor', [
     validarJWT,
     check( 'mensaje', 'El mensaje es obligatorio.' ).escape().trim().notEmpty(),
+    check( 'idReceptor' ).custom( existeUsuario ),
     validarCampos
 ], postMensajes );
 
