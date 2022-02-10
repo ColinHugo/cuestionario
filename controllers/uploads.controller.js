@@ -85,7 +85,7 @@ const putImagen = async ( req, res ) => {
             } );
         }
 
-        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' )
+        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' );
 
         await usuario.save();
 
