@@ -1,14 +1,16 @@
 const path = require( 'path' );
 const fs = require( 'fs' );
 
-const { subirArchivo } = require( '../helpers' )
 const { Usuario } = require( '../models' );
+
+const { subirArchivo } = require( '../helpers' );
 
 const getImagen = async ( req, res ) => {
 
     const { idUsuario } = req.params;
 
     const usuario = await Usuario.findById( idUsuario );
+    
     try {
 
         if ( usuario.foto ){
@@ -26,31 +28,33 @@ const getImagen = async ( req, res ) => {
     }
 
     catch ( error ){
-        console.log( 'Error al mostrar la imagen.', error );
+
+        console.error( 'Error al mostrar la imagen.', error );
+
+        return res.json( {
+            value: 0,
+            msg: 'Error al mostrar la imagen.'
+        } );
     }
-
-    const pathImagen = path.join( __dirname, '../assets/no-image.jpg' );
-
-    res.sendFile( pathImagen );
 }
 
 const postArchivo = async ( req, res ) => {
 
     try {
 
-        const nombre = await subirArchivo( req.files, undefined, 'usuarios' );
+        const nombre = await subirArchivo( req.files, undefined, 'usuarios' )
+            .catch( error => {
+                return res.json( {
+                    value: 0,
+                    msg: error
+                } );
+            } );
 
         res.json( { nombre } );
     }
 
     catch( error ) {
-
-        console.error( 'Error al subir el archivo - imagen', error );
-
-        return res.json( {
-            value: 0,
-            msg: 'Error al subir el archivo - imagen'
-        } );
+        return console.error( 'Error al subir el archivo.', error );
     }
 }
 
@@ -85,7 +89,13 @@ const putImagen = async ( req, res ) => {
             } );
         }
 
-        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' );
+        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' )
+            .catch( error => {
+                return res.json( {
+                    value: 0,
+                    msg: error
+                } );
+            } );
 
         await usuario.save();
 
@@ -95,13 +105,7 @@ const putImagen = async ( req, res ) => {
         } );
 
     } catch ( error ) {
-
-        console.error( 'Error al actualizar la foto de perfil.', error );
-
-        return res.json( {
-            value: 0,
-            msg: 'Error al actualizar la foto de perfil.'
-        } );
+        return console.error( 'Error al actualizar la foto de perfil.' );
     }
 }
 

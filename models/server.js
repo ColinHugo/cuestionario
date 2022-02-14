@@ -40,10 +40,14 @@ class Server{
         this.app.use( mongoSanitize() );
 
         // Fileupload - Carga de archivos
+        // Lḿite del archivo: 10 mb
         this.app.use( fileUpload( {
             useTempFiles : true,
             tempFileDir : '/tmp/',
-            createParentPath: true
+            createParentPath: true,
+            limits: {
+                fileSize: 10485760
+            }
         } ) );
     }
 
