@@ -54,6 +54,16 @@ const UsuarioSchema = Schema( {
     timestamps: true
 } );
 
+UsuarioSchema.pre( 'save', async function ( next ){
+
+    if ( !this.isModified( 'password' ) ) {
+        next();
+    }
+
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash( this.password, salt );
+} );
+
 UsuarioSchema.statics.encryptPassword = async ( password ) => {
     
     const salt = await bcrypt.genSalt();
@@ -61,8 +71,8 @@ UsuarioSchema.statics.encryptPassword = async ( password ) => {
     return bcrypt.hashSync( password, salt );
 }
 
-UsuarioSchema.statics.comparePassword = async ( password, receivedPassword ) => {
-    return await bcrypt.compare( password, receivedPassword );
+UsuarioSchema.methods.comparePassword = async function ( password ) {
+    return await bcrypt.compare( password, this.password );
 }
 
 UsuarioSchema.methods.toJSON = function(){

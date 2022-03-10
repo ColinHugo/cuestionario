@@ -56,14 +56,9 @@ const getUsuario = async ( req, res ) => {
 
 const postUsuarios = async ( req, res ) => {
 
-    const { password, ...datos } = req.body;
-
     try {
 
-        const usuario = new Usuario( {
-            ...datos,
-            password: await Usuario.encryptPassword( password )
-        } );
+        const usuario = new Usuario( req.body );
 
         await usuario.save();
 

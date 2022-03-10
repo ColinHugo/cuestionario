@@ -11,7 +11,7 @@ const iniciarSesion = async ( req, res ) => {
         const usuario = await Usuario.findOne( { correo } );
     
         const passwordCorrect = ( usuario === null || !usuario.estado ) ? 
-        false : await Usuario.comparePassword( password, usuario.password );
+        false : await usuario.comparePassword( password );
     
         if ( !passwordCorrect ) {
             return res.json( {
