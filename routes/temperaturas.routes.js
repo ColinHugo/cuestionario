@@ -26,6 +26,8 @@ router.post( '/:idUsuario', [
 router.put( '/:idTemperatura', [
     check( 'idTemperatura', 'No es un id válido.' ).isMongoId(),
     check( 'idTemperatura' ).custom( existeTemperatura ),
+    check( 'temperatura', 'La temperatura es obligatoria.' ).escape().trim().notEmpty(),
+    check( 'oxigenacion', 'La oxigenacion es obligatoria.' ).escape().trim().notEmpty(),
     validarCampos
 ], putTemperaturas );
 
