@@ -19,6 +19,7 @@ router.post( '/', [
 router.put( '/:idNoticia', [
     check( 'idNoticia', 'No es un id válido.' ).isMongoId(),
     check( 'idNoticia' ).custom( existeNoticia ),
+    check( 'descripcion', 'La descripción de la noticia es obligatoria.' ).trim().notEmpty(),
     validarCampos
 ], putNoticias );
 
