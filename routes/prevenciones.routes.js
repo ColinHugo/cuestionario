@@ -18,6 +18,7 @@ router.post( '/', [
 router.put( '/:idPrevencion', [
     check( 'idPrevencion', 'No es un id válido.' ).isMongoId(),
     check( 'idPrevencion' ).custom( existePrevencion ),
+    check( 'descripcion', 'La descripción de la noticia es obligatoria.' ).escape().trim().notEmpty(),
     validarCampos
 ], putPrevenciones );
 
