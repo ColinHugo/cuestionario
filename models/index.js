@@ -1,4 +1,4 @@
-const Mensaje = require( './mensajes' );
+const Mensaje = require( './mensaje' );
 const Noticia = require( './noticia' );
 const Pregunta = require( './pregunta' );
 const Prevencion = require( './prevencion' );
