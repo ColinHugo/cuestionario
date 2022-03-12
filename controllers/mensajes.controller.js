@@ -1,4 +1,9 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
+
 const { Mensaje, Usuario } = require( '../models' );
+
+const { subirFoto } = require( '../helpers' );
 
 const getMensajes = async ( req, res ) => {
 
@@ -45,6 +50,10 @@ const postMensajes = async ( req, res ) => {
         req.body.emisor = req.body.usuario;
         req.body.receptor = receptor;
 
+        if ( req.body.foto ) {
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'mensajes' );
+        }
+        
         const mensaje = new Mensaje( req.body );
 
         await mensaje.save();
@@ -71,7 +80,18 @@ const deleteMensajes = async ( req, res ) => {
 
     try {
 
-        await Mensaje.findByIdAndDelete( idMensaje )
+        const mensaje = await Mensaje.findById( idMensaje );
+
+        if ( mensaje.foto ) {
+
+            const pathImagen = path.join( __dirname, '../uploads/mensajes/', mensaje.foto );
+
+            if ( fs.existsSync( pathImagen ) ){
+                fs.unlinkSync( pathImagen );
+            }
+        }
+
+        await mensaje.deleteOne();
 
         return res.json( {
             value: 1,

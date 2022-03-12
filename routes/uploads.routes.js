@@ -1,27 +1,25 @@
 const router = require( 'express' ).Router();
 const { check } = require( 'express-validator' );
 
-const { existeUsuario } = require('../helpers');
+const { existeMensaje } = require('../helpers');
 
-const { validarCampos, validarArchivo } = require( '../middlewares' );
+const { validarCampos } = require( '../middlewares' );
 
-const { getImagen, postArchivo, putImagen } = require( '../controllers/uploads.controller' );
+const { getImagenMensaje, putImagen } = require( '../controllers/uploads.controller' );
 
-router.get( '/:idUsuario', [
-    check( 'idUsuario', 'No es un id válido.' ).isMongoId(),
-    check( 'idUsuario' ).custom( existeUsuario ),
+// **********************************************************************
+// *******************     M E N S A J E S *****************************
+// **********************************************************************
+
+router.get( '/mensajes/:idMensaje', [
+    check( 'idMensaje', 'No es un id válido.' ).isMongoId(),
+    check( 'idMensaje' ).custom( existeMensaje ),
     validarCampos
-], getImagen );
-
-router.post( '/:idUsuario', [
-    validarArchivo,
-    check( 'idUsuario' ).custom( existeUsuario ),
-], postArchivo );
+], getImagenMensaje );
 
 router.put( '/:idUsuario', [
-    validarArchivo,
     check( 'idUsuario', 'No es un id válido.' ).isMongoId(),
-    check( 'idUsuario' ).custom( existeUsuario ),
+    check( 'idUsuario' ).custom( existeMensaje ),
     validarCampos
 ], putImagen );
 

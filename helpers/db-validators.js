@@ -1,5 +1,5 @@
 const res = require('express/lib/response');
-const { Noticia, Prevencion, Temperatura, Usuario } = require( '../models' );
+const { Mensaje, Noticia, Prevencion, Temperatura, Usuario } = require( '../models' );
 
 const existeEmail = async( correo = '' ) => {
     
@@ -7,6 +7,15 @@ const existeEmail = async( correo = '' ) => {
     
     if ( email ) {
         throw new Error( `El correo: ${ correo }, ya está registrado` );
+    }
+}
+
+const existeMensaje = async ( id ) => {
+
+    const mensaje = await Mensaje.findById( id );
+
+    if ( !mensaje ) {
+        throw new Error( `No existe mensaje con el id: ${ id }.` );
     }
 }
 
@@ -48,6 +57,7 @@ const existeUsuario = async ( id ) => {
 
 module.exports = {
     existeEmail,
+    existeMensaje,
     existeNoticia,
     existePrevencion,
     existeTemperatura,

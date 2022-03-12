@@ -1,21 +1,21 @@
 const path = require( 'path' );
 const fs = require( 'fs' );
 
-const { Usuario } = require( '../models' );
+const { Mensaje } = require( '../models' );
 
 const { subirArchivo } = require( '../helpers' );
 
-const getImagen = async ( req, res ) => {
+const getImagenMensaje = async ( req, res ) => {
 
-    const { idUsuario } = req.params;
+    const { idMensaje } = req.params;
 
-    const usuario = await Usuario.findById( idUsuario );
+    const mensaje = await Mensaje.findById( idMensaje );
     
     try {
 
-        if ( usuario.foto ){
+        if ( mensaje.foto ){
             
-            const pathImagen = path.join( __dirname, '../uploads', 'usuarios', usuario.foto );
+            const pathImagen = path.join( __dirname, '../uploads/mensajes/', mensaje.foto );
 
             if ( fs.existsSync( pathImagen ) ){
                 return res.sendFile( pathImagen );
@@ -35,26 +35,6 @@ const getImagen = async ( req, res ) => {
             value: 0,
             msg: 'Error al mostrar la imagen.'
         } );
-    }
-}
-
-const postArchivo = async ( req, res ) => {
-
-    try {
-
-        const nombre = await subirArchivo( req.files, undefined, 'usuarios' )
-            .catch( error => {
-                return res.json( {
-                    value: 0,
-                    msg: error
-                } );
-            } );
-
-        res.json( { nombre } );
-    }
-
-    catch( error ) {
-        return console.error( 'Error al subir el archivo.', error );
     }
 }
 
@@ -89,13 +69,7 @@ const putImagen = async ( req, res ) => {
             } );
         }
 
-        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' )
-            .catch( error => {
-                return res.json( {
-                    value: 0,
-                    msg: error
-                } );
-            } );
+        usuario.foto = await subirArchivo( req.files, undefined, 'usuarios' );
 
         await usuario.save();
 
@@ -110,7 +84,6 @@ const putImagen = async ( req, res ) => {
 }
 
 module.exports = {
-    getImagen,
-    postArchivo,
+    getImagenMensaje,
     putImagen
 }
