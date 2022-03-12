@@ -1,7 +1,6 @@
 const express = require( 'express');
 const cors = require( 'cors');
 const mongoSanitize = require( 'express-mongo-sanitize' );
-const fileUpload = require( 'express-fileupload' );
 
 const { dbConnection } = require( '../database/config');
 
