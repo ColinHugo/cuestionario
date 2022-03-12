@@ -1,7 +1,7 @@
 const router = require( 'express' ).Router();
 const { check } = require( 'express-validator' );
 
-const { existeUsuario } = require( '../helpers' );
+const { existeUsuario, existeMensaje } = require( '../helpers' );
 
 const { validarCampos, validarJWT } = require( '../middlewares' );
 
@@ -22,6 +22,7 @@ router.post( '/:idReceptor', [
 
 router.delete( '/:idMensaje', [
     check( 'idMensaje', 'No es un id válido.' ).isMongoId(),
+    check( 'idMensaje' ).custom( existeMensaje ),
     validarCampos
 ], deleteMensajes )
 
