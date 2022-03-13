@@ -1,3 +1,6 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
+
 const { Noticia } = require( '../models' );
 
 const getNoticias = async ( req, res ) => {
@@ -35,6 +38,10 @@ const postNoticias = async ( req, res ) => {
 
     try {
 
+        if ( req.body.foto ) {
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'noticias' );
+        }
+
         const noticia = new Noticia( req.body );
 
         await noticia.save();
@@ -58,11 +65,26 @@ const postNoticias = async ( req, res ) => {
 const putNoticias = async ( req, res ) => {
 
     const { idNoticia } = req.params;
-    const { ...datos } = req.body;
 
     try {
 
-        await Noticia.findByIdAndUpdate( idNoticia, datos );
+        const noticia = await Noticia.findById( idNoticia );
+
+        if ( req.body.foto ) {
+            
+            if ( noticia.foto ) {
+    
+                const pathImagen = path.join( __dirname, '../uploads/noticias/', noticia.foto );
+    
+                if ( fs.existsSync( pathImagen ) ) {
+                    fs.unlinkSync( pathImagen );
+                }
+
+                req.body.foto = await subirFoto( req.body.foto, undefined, 'noticias' );
+            }
+        }
+
+        await noticia.updateOne( req.body );
 
         return res.json( {
             value: 1,
@@ -86,7 +108,18 @@ const deleteNoticias = async ( req, res ) => {
 
     try {
 
-        await Noticia.findByIdAndDelete( idNoticia );
+        const noticia = await Noticia.findById( idNoticia );
+
+        if ( noticia.foto ) {
+
+            const pathImagen = path.join( __dirname, '../uploads/noticias/', noticia.foto );
+
+            if ( fs.existsSync( pathImagen ) ) {
+                fs.unlinkSync( pathImagen );
+            }
+        }
+
+        await noticia.deleteOne();
 
         return res.json( {
             value: 1,
