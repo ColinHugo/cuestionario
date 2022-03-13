@@ -1,4 +1,9 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
+
 const { Prevencion } = require( '../models' );
+
+const { subirFoto } = require('../helpers');
 
 const getPrevenciones = async ( req, res ) => {
 
@@ -34,6 +39,10 @@ const postPrevenciones = async ( req, res ) => {
 
     try {
 
+        if ( req.body.foto ) {
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'prevenciones' );
+        }
+
         const prevencion = new Prevencion( req.body );
 
         await prevencion.save();
@@ -57,11 +66,26 @@ const postPrevenciones = async ( req, res ) => {
 const putPrevenciones = async ( req, res ) => {
 
     const { idPrevencion } = req.params;
-    const { ...datos } = req.body;
 
     try {
 
-        await Prevencion.findByIdAndUpdate( idPrevencion, datos );
+        const prevencion = await Prevencion.findById( idPrevencion );
+
+        if ( req.body.foto) {
+            
+            if ( prevencion.foto ) {
+                
+                const pathImagen = path.join( __dirname, '../uploads/prevenciones/', prevencion.foto );
+    
+                if ( fs.existsSync( pathImagen ) ) {
+                    fs.unlinkSync( pathImagen );
+                }
+
+                req.body.foto = await subirFoto( req.body.foto, undefined, 'prevenciones' );
+            }
+        }
+
+        await prevencion.updateOne( req.body );
 
         return res.json( {
             value: 1,
@@ -85,7 +109,18 @@ const deletePrevenciones = async ( req, res ) => {
 
     try {
 
-        await Prevencion.findByIdAndUpdate( idPrevencion, { estado: false } );
+        const prevencion = await Prevencion.findById( idPrevencion );
+
+        if ( prevencion.foto ) {
+            
+            const pathImagen = path.join( __dirname, '../uploads/prevenciones/', prevencion.foto );
+
+            if ( fs.existsSync( pathImagen ) ) {
+                fs.unlinkSync( pathImagen );
+            }
+        }
+
+        await prevencion.deleteOne();
 
         return res.json( {
             value: 1,
