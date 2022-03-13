@@ -32,10 +32,6 @@ router.post( '/', [
 router.put( '/:idUsuario', [
     check( 'idUsuario', 'No es un id válido.' ).isMongoId(),
     check( 'idUsuario' ).custom( existeUsuario ),
-    check( 'nombre', 'El nombre del usuario es obligatorio.' ).escape().trim().notEmpty(),
-    check( 'apellidos', 'Los apellidos del usuario son obligatorios.' ).escape().trim().notEmpty(),
-    check( 'area', 'El área del usuario es obligatoria.' ).escape().trim().notEmpty(),
-    check( 'puesto', 'El puesto del usuario es obligatorio.' ).escape().trim().notEmpty(),
     validarCampos
 ], putUsuarios );
 
