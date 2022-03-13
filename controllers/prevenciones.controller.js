@@ -80,9 +80,9 @@ const putPrevenciones = async ( req, res ) => {
                 if ( fs.existsSync( pathImagen ) ) {
                     fs.unlinkSync( pathImagen );
                 }
-
-                req.body.foto = await subirFoto( req.body.foto, undefined, 'prevenciones' );
             }
+
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'prevenciones' );
         }
 
         await prevencion.updateOne( req.body );
