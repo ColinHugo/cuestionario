@@ -1,4 +1,9 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
+
 const { Usuario } = require( '../models' );
+
+const { subirFoto } = require( '../helpers' );
 
 const getUsuarios = async ( req, res ) => {
 
@@ -58,6 +63,10 @@ const postUsuarios = async ( req, res ) => {
 
     try {
 
+        if ( req.body.foto ) {
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'usuarios' );
+        }
+
         const usuario = new Usuario( req.body );
 
         await usuario.save();
@@ -81,15 +90,31 @@ const postUsuarios = async ( req, res ) => {
 const putUsuarios = async ( req, res ) => {
 
     const { idUsuario } = req.params;
-    const { password, ...datos } = req.body;
+    const { password, foto, ...datos } = req.body;
 
     try {
+
+        const usuario = await Usuario.findById( idUsuario );
 
         if ( password ) {
             datos.password = await Usuario.encryptPassword( password );
         }
 
-        await Usuario.findByIdAndUpdate( idUsuario, datos );
+        if ( foto ) {
+            
+            if ( usuario.foto ) {
+    
+                const pathImagen = path.join( __dirname, '../uploads/usuarios/', usuario.foto );
+
+                if ( fs.existsSync( pathImagen ) ) {
+                    fs.unlinkSync( pathImagen );
+                }
+            }
+
+            datos.foto = await subirFoto( req.body.foto, undefined, 'usuarios' );
+        }
+
+        await usuario.updateOne( datos );
 
         return res.json( {
             value: 1,
