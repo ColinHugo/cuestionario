@@ -3,6 +3,8 @@ const path = require( 'path' );
 
 const { Noticia } = require( '../models' );
 
+const { subirFoto } = require( '../helpers' );
+
 const getNoticias = async ( req, res ) => {
 
     try {
@@ -79,9 +81,9 @@ const putNoticias = async ( req, res ) => {
                 if ( fs.existsSync( pathImagen ) ) {
                     fs.unlinkSync( pathImagen );
                 }
-
-                req.body.foto = await subirFoto( req.body.foto, undefined, 'noticias' );
             }
+            
+            req.body.foto = await subirFoto( req.body.foto, undefined, 'noticias' );
         }
 
         await noticia.updateOne( req.body );
