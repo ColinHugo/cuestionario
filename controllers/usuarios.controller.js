@@ -3,13 +3,13 @@ const path = require( 'path' );
 
 const { Usuario } = require( '../models' );
 
-const { subirFoto } = require( '../helpers' );
+const { generarUrlFotos, subirFoto } = require( '../helpers' );
 
 const getUsuarios = async ( req, res ) => {
 
     try {
 
-        const usuarios = await Usuario.find( { estado: true } );
+        let usuarios = await Usuario.find( { estado: true } );
 
         if ( usuarios.length === 0 ) {
 
@@ -19,11 +19,7 @@ const getUsuarios = async ( req, res ) => {
             } );
         }
 
-        usuarios.forEach( usuario => {
-            if ( usuario.foto ) {
-                usuario.foto = `${ req.protocol }://${ req.headers.host }/usuarios/${ usuario.foto }`;
-            }
-        } );
+        usuarios = generarUrlFotos( req, 'usuarios', usuarios );
 
         return res.json( {
             value: 1,
@@ -48,6 +44,10 @@ const getUsuario = async ( req, res ) => {
     try {
 
         const usuario = await Usuario.findById( idUsuario );
+
+        if ( usuario.foto ) {
+            usuario.foto = `${ req.protocol }://${ req.headers.host }/usuarios/${ usuario.foto }`;
+        }
 
         return res.json( {
             value: 1,

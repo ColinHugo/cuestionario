@@ -3,7 +3,7 @@ const path = require( 'path' );
 
 const { Mensaje, Usuario } = require( '../models' );
 
-const { subirFoto } = require( '../helpers' );
+const { generarUrlFotos, subirFoto } = require( '../helpers' );
 
 const getMensajes = async ( req, res ) => {
 
@@ -11,7 +11,7 @@ const getMensajes = async ( req, res ) => {
 
     try {
 
-        const mensajes = await Mensaje.where( { receptor: idUsuario } )
+        let mensajes = await Mensaje.where( { receptor: idUsuario } )
             .populate( 'emisor', [ 'nombre', 'apellidos'] )
             .populate( 'receptor', [ 'nombre', 'apellidos'] );
 
@@ -23,11 +23,7 @@ const getMensajes = async ( req, res ) => {
             } );
         }
 
-        mensajes.forEach( mensaje => {
-            if ( mensaje.foto ) {
-                mensaje.foto = `${ req.protocol }://${ req.headers.host }/mensajes/${ mensaje.foto }`;
-            }
-        } );
+        mensajes = generarUrlFotos( req, 'mensajes', mensajes );
 
         return res.json( {
             value: 1,

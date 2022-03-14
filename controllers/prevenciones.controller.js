@@ -3,13 +3,13 @@ const path = require( 'path' );
 
 const { Prevencion } = require( '../models' );
 
-const { subirFoto } = require('../helpers');
+const { generarUrlFotos, subirFoto } = require('../helpers');
 
 const getPrevenciones = async ( req, res ) => {
 
     try {
 
-        const prevenciones = await Prevencion.find( { estado: true } );
+        let prevenciones = await Prevencion.find( { estado: true } );
 
         if ( prevenciones.length === 0 ) {
 
@@ -19,11 +19,7 @@ const getPrevenciones = async ( req, res ) => {
             } );
         }
 
-        prevenciones.forEach( prevencion => {
-            if ( prevencion.foto ) {
-                prevencion.foto = `${ req.protocol }://${ req.headers.host }/prevenciones/${ prevencion.foto }`;
-            }
-        } );
+        prevenciones = generarUrlFotos( req, 'prevenciones', prevenciones );
 
         return res.json( {
             value: 1,

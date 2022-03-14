@@ -3,13 +3,13 @@ const path = require( 'path' );
 
 const { Noticia } = require( '../models' );
 
-const { subirFoto } = require( '../helpers' );
+const { generarUrlFotos, subirFoto } = require( '../helpers' );
 
 const getNoticias = async ( req, res ) => {
 
     try {
 
-        const noticias = await Noticia.find().sort( { createdAt: -1 } )
+        let noticias = await Noticia.find().sort( { createdAt: -1 } )
             .populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
         if ( noticias.length === 0 ) {
@@ -20,11 +20,7 @@ const getNoticias = async ( req, res ) => {
             } );
         }
 
-        noticias.forEach( noticia => {
-            if ( noticia.foto ) {
-                noticia.foto = `${ req.protocol }://${ req.headers.host }/noticias/${ noticia.foto }`;
-            }
-        } );
+        noticias = generarUrlFotos( req, 'noticias', noticias );
 
         return res.json( {
             value: 1,
