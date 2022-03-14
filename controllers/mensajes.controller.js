@@ -23,6 +23,12 @@ const getMensajes = async ( req, res ) => {
             } );
         }
 
+        mensajes.forEach( mensaje => {
+            if ( mensaje.foto ) {
+                mensaje.foto = `${ req.protocol }://${ req.headers.host }/mensajes/${ mensaje.foto }`;
+            }
+        } );
+
         return res.json( {
             value: 1,
             mensajes
