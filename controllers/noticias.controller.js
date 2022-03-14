@@ -20,6 +20,12 @@ const getNoticias = async ( req, res ) => {
             } );
         }
 
+        noticias.forEach( noticia => {
+            if ( noticia.foto ) {
+                noticia.foto = `${ req.protocol }://${ req.headers.host }/noticias/${ noticia.foto }`;
+            }
+        } );
+
         return res.json( {
             value: 1,
             noticias
