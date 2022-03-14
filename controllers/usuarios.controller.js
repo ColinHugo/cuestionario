@@ -19,6 +19,12 @@ const getUsuarios = async ( req, res ) => {
             } );
         }
 
+        usuarios.forEach( usuario => {
+            if ( usuario.foto ) {
+                usuario.foto = `${ req.protocol }://${ req.headers.host }/usuarios/${ usuario.foto }`;
+            }
+        } );
+
         return res.json( {
             value: 1,
             usuarios
