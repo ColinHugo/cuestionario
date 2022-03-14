@@ -37,6 +37,7 @@ class Server{
         this.app.use( cors() );
         this.app.use( express.json( { limit: '100mb' } ) );
         this.app.use( mongoSanitize() );
+        this.app.use( express.static( __dirname + '/../uploads' ) );
     }
 
     routes(){
