@@ -18,6 +18,12 @@ const subirFoto = ( dataURI, extensionesValidas = [ 'png', 'jpg', 'jpeg', 'webp'
         }
 
         const nombre = uuidv4() + '.' + extension;
+        const carpetaContenedora = path.join( __dirname, '../uploads/', carpeta );
+
+        if ( !fs.existsSync( carpetaContenedora ) ) {
+            fs.mkdirSync( carpetaContenedora );
+        }
+
         const uploadPath = path.join( __dirname, '../uploads/', carpeta, nombre );
 
         fs.writeFile( uploadPath, binaryData, 'binary', ( err ) => {
