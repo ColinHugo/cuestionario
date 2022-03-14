@@ -19,6 +19,12 @@ const getPrevenciones = async ( req, res ) => {
             } );
         }
 
+        prevenciones.forEach( prevencion => {
+            if ( prevencion.foto ) {
+                prevencion.foto = `${ req.protocol }://${ req.headers.host }/prevenciones/${ prevencion.foto }`;
+            }
+        } );
+
         return res.json( {
             value: 1,
             prevenciones
