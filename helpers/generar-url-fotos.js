@@ -4,7 +4,7 @@ const generarUrlFotos = ( req, carpeta, documentos ) => {
 
         if ( documento.foto ) {
             documento.foto = `${ req.protocol }://${ req.headers.host }/${ carpeta }/${ documento.foto }`;
-        } else{
+        } else {
             documento.foto = `${ req.protocol }://${ req.headers.host }/no-image.jpg`;
         }
     } );
