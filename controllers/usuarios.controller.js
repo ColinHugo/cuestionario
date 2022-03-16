@@ -144,7 +144,21 @@ const deleteUsuarios = async ( req, res ) => {
 
     try {
 
-        await Usuario.findByIdAndUpdate( idUsuario, { estado: false } );
+        const usuario = await Usuario.findById( idUsuario );
+
+        if ( usuario.foto ) {
+            
+            const pathImagen = path.join( __dirname, '../uploads/usuarios/', usuario.foto );
+
+            if ( fs.existsSync( pathImagen ) ){
+                fs.unlinkSync( pathImagen );
+            }
+        }
+
+        usuario.estado = false;
+        usuario.foto = '';
+
+        await usuario.save();
 
         return res.json( {
             value: 1,
