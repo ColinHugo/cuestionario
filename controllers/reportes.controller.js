@@ -21,7 +21,7 @@ const getReportes = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta1: true 
+                    pregunta1: true
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
                 
                 break;
@@ -35,11 +35,13 @@ const getReportes = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta2: true,
-                    pregunta3: true,
-                    pregunta4: true,
-                    pregunta5: true,
-                    pregunta6: true,
+                    $or: [
+                        { pregunta2: true },
+                        { pregunta3: true },
+                        { pregunta4: true },
+                        { pregunta5: true },
+                        { pregunta6: true },
+                    ]
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -53,14 +55,16 @@ const getReportes = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta7: true,
-                    pregunta8: true,
-                    pregunta9: true,
-                    pregunta10: true,
-                    pregunta11: true,
-                    pregunta12: true,
-                    pregunta13: true,
-                    pregunta14: true,
+                    $or: [
+                        { pregunta7: true },
+                        { pregunta8: true },
+                        { pregunta9: true },
+                        { pregunta10: true },
+                        { pregunta11: true },
+                        { pregunta12: true },
+                        { pregunta13: true },
+                        { pregunta14: true }
+                    ]
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -107,7 +111,7 @@ const getReporteById = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta1: true 
+                    pregunta1: true
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
                 
                 break;
@@ -124,11 +128,13 @@ const getReporteById = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta2: true,
-                    pregunta3: true,
-                    pregunta4: true,
-                    pregunta5: true,
-                    pregunta6: true,
+                    $or: [
+                        { pregunta2: true },
+                        { pregunta3: true },
+                        { pregunta4: true },
+                        { pregunta5: true },
+                        { pregunta6: true },
+                    ]
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -145,14 +151,16 @@ const getReporteById = async ( req, res ) => {
                         $gte: desde,
                         $lte: hasta
                     },
-                    pregunta7: true,
-                    pregunta8: true,
-                    pregunta9: true,
-                    pregunta10: true,
-                    pregunta11: true,
-                    pregunta12: true,
-                    pregunta13: true,
-                    pregunta14: true,
+                    $or: [
+                        { pregunta7: true },
+                        { pregunta8: true },
+                        { pregunta9: true },
+                        { pregunta10: true },
+                        { pregunta11: true },
+                        { pregunta12: true },
+                        { pregunta13: true },
+                        { pregunta14: true }
+                    ]
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
