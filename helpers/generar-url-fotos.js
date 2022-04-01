@@ -1,13 +1,27 @@
 const generarUrlFotos = ( req, carpeta, documentos ) => {
 
-    documentos.forEach( documento => {
+    if ( Array.isArray( documentos ) ) {
 
-        if ( documento.foto ) {
-            documento.foto = `${ req.protocol }://${ req.headers.host }/${ carpeta }/${ documento.foto }`;
+        documentos.forEach( documento => {
+
+            if ( documento.foto ) {
+                documento.foto = `${ req.protocol }://${ req.headers.host }/${ carpeta }/${ documento.foto }`;
+            } 
+            
+            else {
+                documento.foto = `${ req.protocol }://${ req.headers.host }/no-image.jpg`;
+            }
+        } );
+    } 
+    
+    else {
+
+        if ( documentos.foto ) {
+            documentos.foto = `${ req.protocol }://${ req.headers.host }/${ carpeta }/${ documentos.foto }`;
         } else {
-            documento.foto = `${ req.protocol }://${ req.headers.host }/no-image.jpg`;
+            documentos.foto = `${ req.protocol }://${ req.headers.host }/no-image.jpg`;
         }
-    } );
+    }
 
     return documentos;
 }

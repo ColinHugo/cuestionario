@@ -43,11 +43,9 @@ const getUsuario = async ( req, res ) => {
 
     try {
 
-        const usuario = await Usuario.findById( idUsuario );
+        let usuario = await Usuario.findById( idUsuario );
 
-        if ( usuario.foto ) {
-            usuario.foto = `${ req.protocol }://${ req.headers.host }/usuarios/${ usuario.foto }`;
-        }
+        usuario = generarUrlFotos( req, 'usuarios', usuario );
 
         return res.json( {
             value: 1,

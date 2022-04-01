@@ -35,8 +35,6 @@ const getTemperaturas = async ( req, res ) => {
 
 const postTemperatura = async ( req, res ) => {
 
-    // const { nombre, apellidos } = req.body.usuario;
-
     const { temperatura, oxigenacion, usuario } = req.body;
 
     try {
