@@ -13,6 +13,7 @@ class Server{
 
         this.paths = {
             auth: '/auth',
+            graficas: '/graficas',
             mensajes: '/mensajes',
             noticias: '/noticias',
             preguntas: '/cuestionarios',
@@ -44,6 +45,7 @@ class Server{
     routes(){
 
         this.app.use( this.paths.auth, require( '../routes/auth.routes' ) );
+        this.app.use( this.paths.graficas, require( '../routes/graficas.routes' ) );
         this.app.use( this.paths.mensajes, require( '../routes/mensajes.routes' ) );
         this.app.use( this.paths.noticias, require( '../routes/noticias.routes' ) );
         this.app.use( this.paths.preguntas, require( '../routes/preguntas.routes' ) );
