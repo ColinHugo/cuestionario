@@ -18,10 +18,9 @@ const getReportes = async ( req, res ) => {
 
                 preguntas = await Pregunta.find( {
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    pregunta1: true
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
                 
                 break;
@@ -32,16 +31,9 @@ const getReportes = async ( req, res ) => {
 
                 preguntas = await Pregunta.find( {
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    $or: [
-                        { pregunta2: true },
-                        { pregunta3: true },
-                        { pregunta4: true },
-                        { pregunta5: true },
-                        { pregunta6: true },
-                    ]
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -52,19 +44,9 @@ const getReportes = async ( req, res ) => {
 
                 preguntas = await Pregunta.find( {
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    $or: [
-                        { pregunta7: true },
-                        { pregunta8: true },
-                        { pregunta9: true },
-                        { pregunta10: true },
-                        { pregunta11: true },
-                        { pregunta12: true },
-                        { pregunta13: true },
-                        { pregunta14: true }
-                    ]
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -108,10 +90,9 @@ const getReporteById = async ( req, res ) => {
                         _id: idUsuario
                     },
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    pregunta1: true
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
                 
                 break;
@@ -125,16 +106,9 @@ const getReporteById = async ( req, res ) => {
                         _id: idUsuario
                     },
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    $or: [
-                        { pregunta2: true },
-                        { pregunta3: true },
-                        { pregunta4: true },
-                        { pregunta5: true },
-                        { pregunta6: true },
-                    ]
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
@@ -148,19 +122,9 @@ const getReporteById = async ( req, res ) => {
                         _id: idUsuario
                     },
                     createdAt: {
-                        $gte: desde,
-                        $lte: hasta
-                    },
-                    $or: [
-                        { pregunta7: true },
-                        { pregunta8: true },
-                        { pregunta9: true },
-                        { pregunta10: true },
-                        { pregunta11: true },
-                        { pregunta12: true },
-                        { pregunta13: true },
-                        { pregunta14: true }
-                    ]
+                        $gte: new Date( desde ).toISOString(),
+                        $lte: new Date( hasta ).toISOString()
+                    }
                 } ).populate( 'usuario', [ 'nombre', 'apellidos' ] );
 
                 break;
