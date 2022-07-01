@@ -17,8 +17,93 @@ const generarPDF = ( res, preguntas, cabecera ) => {
     const preguntasAux = JSON.parse( JSON.stringify( preguntas ) );
 
     preguntasAux.forEach( pregunta => {
+
         pregunta.usuario = `${ pregunta.usuario.nombre } ${ pregunta.usuario.apellidos }`;
         pregunta.createdAt = `${ pregunta.createdAt.substring( 0, 10 ) }`;
+
+        if ( pregunta.pregunta1 ) {
+            pregunta.pregunta1 = 'SI';
+        } else {
+            pregunta.pregunta1 = 'NO';
+        }
+
+        if ( pregunta.pregunta2 ) {
+              pregunta.pregunta2 = 'SI';
+        } else {
+            pregunta.pregunta2 = 'NO';
+        }
+        
+        if ( pregunta.pregunta3 ) {
+              pregunta.pregunta3 = 'SI';
+        } else {
+            pregunta.pregunta3 = 'NO';
+        }
+
+        if ( pregunta.pregunta4 ) {
+              pregunta.pregunta4 = 'SI';
+        } else {
+            pregunta.pregunta4 = 'NO';
+        }
+
+        if ( pregunta.pregunta5 ) {
+              pregunta.pregunta5 = 'SI';
+        } else {
+            pregunta.pregunta5 = 'NO';
+        }
+
+        if ( pregunta.pregunta6 ) {
+              pregunta.pregunta6 = 'SI';
+        } else {
+            pregunta.pregunta6 = 'NO';
+        }
+
+        if ( pregunta.pregunta7 ) {
+              pregunta.pregunta7 = 'SI';
+        } else {
+            pregunta.pregunta7 = 'NO';
+        }
+
+        if ( pregunta.pregunta8 ) {
+              pregunta.pregunta8 = 'SI';
+        } else {
+            pregunta.pregunta8 = 'NO';
+        }
+
+        if ( pregunta.pregunta9 ) {
+              pregunta.pregunta9 = 'SI';
+        } else {
+            pregunta.pregunta9 = 'NO';
+        }
+
+        if ( pregunta.pregunta10 ) {
+              pregunta.pregunta10 = 'SI';
+        } else {
+            pregunta.pregunta10 = 'NO';
+        }
+
+        if ( pregunta.pregunta11 ) {
+              pregunta.pregunta11 = 'SI';
+        } else {
+            pregunta.pregunta11 = 'NO';
+        }
+
+        if ( pregunta.pregunta12 ) {
+              pregunta.pregunta12 = 'SI';
+        } else {
+            pregunta.pregunta12 = 'NO';
+        }
+
+        if ( pregunta.pregunta13 ) {
+              pregunta.pregunta13 = 'SI';
+        } else {
+            pregunta.pregunta13 = 'NO';
+        }
+
+        if ( pregunta.pregunta14 ) {
+              pregunta.pregunta14 = 'SI';
+        } else {
+            pregunta.pregunta14 = 'NO';
+        }
     } );
 
     let table;
